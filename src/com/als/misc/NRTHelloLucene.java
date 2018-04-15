@@ -1,4 +1,4 @@
-package com.als.main;
+package com.als.misc;
 
 import java.io.IOException;
 

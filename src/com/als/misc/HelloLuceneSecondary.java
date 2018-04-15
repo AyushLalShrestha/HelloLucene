@@ -1,4 +1,4 @@
-package com.als.main;
+package com.als.misc;
 
 import org.apache.lucene.*;
 import org.apache.lucene.analysis.Analyzer;

@@ -1,0 +1,9 @@
+Hello world
+Hello lucene
+This is hello lucene
+This sentence also contains lucene
+This sentence doesnt contain lucene
+
+this line should not be matched
+
+

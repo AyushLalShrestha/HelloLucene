@@ -5,10 +5,7 @@ import com.als.lucenespring.searcher.LuceneSearcher;
 import com.als.lucenespring.searcher.SearcherProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,8 +27,8 @@ public class SearchController {
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     @ResponseStatus(value= HttpStatus.OK)
-    public String searchIndexes() {
-        List<String> results = this.searcherProcess.search("Lucene");
+    public String searchIndexes(@RequestParam(value="query") String query) {
+        List<String> results = this.searcherProcess.search(query);
         return results.toString();
     }
 }

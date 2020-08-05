@@ -20,14 +20,13 @@ import org.apache.lucene.store.FSDirectory;
  * @author ALS
  */
 public class LuceneSearcher {
-    IndexSearcher indexSearcher;
     StandardAnalyzer analyzer;
+    String indexDirectoryPath;
+    IndexSearcher indexSearcher;
 
     public LuceneSearcher(String indexDirectoryPath) throws IOException {
-        Directory directory = FSDirectory.open(Paths.get(indexDirectoryPath));
-        IndexReader reader = DirectoryReader.open(directory);
         this.analyzer = new StandardAnalyzer();
-        this.setIndexSearcher(reader);
+        this.indexDirectoryPath = indexDirectoryPath;
     }
 
     public Query parseStringQuery(String stringQuery) throws ParseException {
@@ -36,9 +35,12 @@ public class LuceneSearcher {
     }
 
     public List<String> getResults(String stringQuery) throws IOException, ParseException {
+        Directory directory = FSDirectory.open(Paths.get(indexDirectoryPath));
+        IndexReader reader = DirectoryReader.open(directory);
+        this.setIndexSearcher(reader);
         Query query = this.parseStringQuery(stringQuery);
         TopDocs results = this.indexSearcher.search(query, 5);
-        System.out.println("Hits for " + stringQuery + " == " + results.totalHits);
+        System.out.println("Hits for query=" + stringQuery + " == " + results.totalHits);
         ScoreDoc[] hits = results.scoreDocs;
         return prepareStringArrayResults(hits);
 
